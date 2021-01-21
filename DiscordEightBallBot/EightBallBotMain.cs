@@ -41,9 +41,8 @@ namespace DiscordEightBallBot
             {
                 // Check for 8 ball message
                 if (e.Message.Content
-                    .Trim()
                     .ToLower()
-                    .Equals("m8!"))
+                    .Contains("m8!"))
                 {
                     // Get random response
                     var eightBallMessage = GetRandomMessage();
