@@ -40,6 +40,12 @@ namespace DiscordEightBallBot
         {
             try
             {
+                // Don't reply to ourself
+                if (e.Author.Equals(sender.CurrentUser))
+                {
+                    return;
+                }
+                
                 // Check permissions
                 if (!e.Channel.IsPrivate)
                 {
