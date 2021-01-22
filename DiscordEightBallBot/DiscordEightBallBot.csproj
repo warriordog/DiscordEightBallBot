@@ -4,6 +4,9 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
       <UserSecretsId>26d6a9e1-99c6-432d-a672-f8e2583d1acf</UserSecretsId>
+      <PackageVersion>1.0.1</PackageVersion>
+      <Title>Eight Ball Bot</Title>
+      <Authors>Chris Koehler</Authors>
   </PropertyGroup>
 
     <ItemGroup>

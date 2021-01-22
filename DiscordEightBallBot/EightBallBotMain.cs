@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using DSharpPlus;
@@ -39,10 +40,21 @@ namespace DiscordEightBallBot
         {
             try
             {
+                // Check permissions
+                if (!e.Channel.IsPrivate)
+                {
+                    // Get current member (user from current channel)
+                    var currentMember = e.Channel.Users.FirstOrDefault(mbr => mbr.Equals(sender.CurrentUser));
+                    
+                    // Check for chat permissions
+                    if (currentMember == null || !e.Channel.PermissionsFor(currentMember).HasPermission(Permissions.SendMessages))
+                    {
+                        return;
+                    }
+                }
+                
                 // Check for 8 ball message
-                if (e.Message.Content
-                    .ToLower()
-                    .Contains("m8!"))
+                if (e.Message.Content.ToLower().Contains("m8!"))
                 {
                     // Get random response
                     var eightBallMessage = GetRandomMessage();
