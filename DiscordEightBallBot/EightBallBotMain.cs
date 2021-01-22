@@ -1,9 +1,7 @@
 using System;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using DSharpPlus;
-using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -16,7 +14,7 @@ namespace DiscordEightBallBot
         private readonly ILogger<EightBallBotMain> _logger;
         private readonly Random                    _random;
 
-        public EightBallBotMain(IServiceProvider serviceProvider, ILoggerFactory loggerFactory, IOptions<BotOptions> botOptions, ILogger<EightBallBotMain> logger)
+        public EightBallBotMain(ILoggerFactory loggerFactory, IOptions<BotOptions> botOptions, ILogger<EightBallBotMain> logger)
         {
             _logger = logger;
 
