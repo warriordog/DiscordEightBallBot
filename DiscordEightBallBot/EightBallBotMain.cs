@@ -26,7 +26,8 @@ namespace DiscordEightBallBot
                 {
                     Token = botOptions.Value.DiscordToken,
                     TokenType = TokenType.Bot,
-                    LoggerFactory = loggerFactory
+                    LoggerFactory = loggerFactory,
+                    Intents = DiscordIntents.DirectMessages | DiscordIntents.GuildMessages
                 }
             );
 
