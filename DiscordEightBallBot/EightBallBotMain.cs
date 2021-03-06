@@ -27,12 +27,19 @@ namespace DiscordEightBallBot
                     Token = botOptions.Value.DiscordToken,
                     TokenType = TokenType.Bot,
                     LoggerFactory = loggerFactory,
-                    Intents = DiscordIntents.DirectMessages | DiscordIntents.GuildMessages
+                    Intents = DiscordIntents.DirectMessages | DiscordIntents.GuildMessages | DiscordIntents.Guilds
                 }
             );
 
             // Register event handler
             _discord.MessageCreated += HandleMessage;
+            
+            // Log when bot joins a server.
+            _discord.GuildCreated += (d, e) => 
+            {
+                _logger.LogInformation($"Joined server {e.Guild.Id} ({e.Guild.Name})");
+                return Task.CompletedTask;
+            };
         }
 
         private async Task HandleMessage(DiscordClient sender, MessageCreateEventArgs e)
