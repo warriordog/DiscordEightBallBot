@@ -83,6 +83,11 @@ namespace DiscordEightBallBot
 
         private string GetRandomMessage()
         {
+            if (_random.Next(1000) == 0)
+            {
+                return "Why are you asking me? You don't need a silly bot to tell you what to do. You already know the answer. Listen to your heart, and trust your instincts.";
+            }
+
             var answerIdx = _random.Next(EightBallAnswers.Length);
             return EightBallAnswers[answerIdx];
         }
