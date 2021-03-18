@@ -44,40 +44,48 @@ namespace DiscordEightBallBot
 
         private async Task HandleMessage(DiscordClient sender, MessageCreateEventArgs e)
         {
-            try
+            using (_logger.BeginScope("HandleMessage"))
             {
-                // Don't reply to ourself
-                if (e.Author.Equals(sender.CurrentUser))
+                try
                 {
-                    return;
-                }
-                
-                // Check permissions, unless this is a DM
-                if (!e.Channel.IsPrivate)
-                {
-                    // Get current member (user from current channel)
-                    var currentMember = e.Channel.Users.FirstOrDefault(mbr => mbr.Equals(sender.CurrentUser));
-                    
-                    // Check for chat permissions
-                    if (currentMember == null || !e.Channel.PermissionsFor(currentMember).HasPermission(Permissions.SendMessages))
+                    // Don't reply to ourself
+                    if (e.Author.Equals(sender.CurrentUser))
                     {
                         return;
                     }
-                }
                 
-                // Check for 8 ball message
-                if (e.Message.Content.ToLower().Contains("m8!"))
-                {
+                    // Check for 8 ball message
+                    if (!e.Message.Content.ToLower().Contains("m8!"))
+                    {
+                        return;
+                    }
+                    
+                    _logger.LogDebug("Invoked by [{user}]", e.Message.Author);
+                
+                    // Check permissions, unless this is a DM
+                    if (!e.Channel.IsPrivate)
+                    {
+                        // Get current member (user from current channel)
+                        var currentMember = e.Channel.Users.FirstOrDefault(mbr => mbr.Equals(sender.CurrentUser));
+                    
+                        // Check for chat permissions
+                        if (currentMember == null || !e.Channel.PermissionsFor(currentMember).HasPermission(Permissions.SendMessages))
+                        {
+                            _logger.LogDebug("Skipping for lack of permissions");
+                            return;
+                        }
+                    }
+                    
                     // Get random response
                     var eightBallMessage = GetRandomMessage();
 
                     // Send response
                     await e.Message.RespondAsync(eightBallMessage);
                 }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Unhandled exception in message handler");
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Unhandled exception in message handler");
+                }   
             }
         }
 
