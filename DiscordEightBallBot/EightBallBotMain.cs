@@ -35,7 +35,7 @@ namespace DiscordEightBallBot
             _discord.MessageCreated += HandleMessage;
             
             // Log when bot joins a server.
-            _discord.GuildCreated += (d, e) => 
+            _discord.GuildCreated += (_, e) => 
             {
                 _logger.LogInformation($"Joined server {e.Guild.Id} ({e.Guild.Name})");
                 return Task.CompletedTask;
@@ -52,7 +52,7 @@ namespace DiscordEightBallBot
                     return;
                 }
                 
-                // Check permissions
+                // Check permissions, unless this is a DM
                 if (!e.Channel.IsPrivate)
                 {
                     // Get current member (user from current channel)
@@ -85,7 +85,7 @@ namespace DiscordEightBallBot
         {
             if (_random.Next(1000) == 0)
             {
-                return "Why are you asking me? You don't need a silly bot to tell you what to do. You already know the answer. Listen to your heart, and trust your instincts.";
+                return "DEAR GOD NO!";
             }
 
             var answerIdx = _random.Next(EightBallAnswers.Length);

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace DiscordEightBallBot
 {
-    class Program
+    internal static class Program
     {
         public static async Task Main(string[] args)
         {
