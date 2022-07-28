@@ -25,10 +25,12 @@ namespace DiscordEightBallBot
                         services.AddOptions<BotOptions>()
                             .Bind(ctx.Configuration.GetSection(nameof(BotOptions)))
                             .ValidateDataAnnotations();
+                        services.AddOptions<M8CommandOptions>()
+                            .Bind(ctx.Configuration.GetSection(nameof(M8CommandOptions)))
+                            .ValidateDataAnnotations();
 
-                        // Inject main app logic
-                        services.AddScoped<EightBallBotMain>();
-                        services.AddHostedService<EightBallBotService>();
+                        // Start background process
+                        services.AddHostedService<M8Service>();
                     }
                 )
                 .Build();
