@@ -4,10 +4,10 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
       <UserSecretsId>26d6a9e1-99c6-432d-a672-f8e2583d1acf</UserSecretsId>
-      <PackageVersion>1.1.0</PackageVersion>
+      <PackageVersion>1.1.1</PackageVersion>
       <Title>Eight Ball Bot</Title>
       <Authors>Hazel Koehler</Authors>
-      <AssemblyVersion>1.1.0.0</AssemblyVersion>
+      <AssemblyVersion>1.1.1.0</AssemblyVersion>
       <NeutralLanguage>en</NeutralLanguage>
       <LangVersion>10</LangVersion>
       <Nullable>enable</Nullable>

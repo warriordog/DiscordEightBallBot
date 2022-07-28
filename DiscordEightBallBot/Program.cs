@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -18,8 +19,13 @@ namespace DiscordEightBallBot
         private static IHost CreateHost(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
-                .ConfigureServices(
-                    (ctx, services) =>
+                .ConfigureAppConfiguration((_, configuration) =>
+                    {
+                        // Add configuration file from bin directory
+                        configuration.AddJsonFile("bin/appsettings.json", true, true);
+                    }
+                )
+                .ConfigureServices((ctx, services) =>
                     {
                         // Inject config
                         services.AddOptions<BotOptions>()
